@@ -8,7 +8,6 @@
     
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.5; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
-        /* 2. ADDED ID="form-content" FOR THE PDF GENERATOR */
         .form-container { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-top: 10px solid #2c3e50; }
         .header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
         .biz-name { font-size: 30px; font-weight: 800; text-transform: uppercase; margin: 0; color: #2c3e50; }
@@ -38,6 +37,9 @@
             border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 40px;
         }
         .submit-btn:hover { background-color: #2ecc71; }
+
+        /* Hides the button when the PDF is being generated */
+        .no-export { display: none !important; }
 
         @media print {
             .submit-btn, .id-warning { display: none !important; }
@@ -138,7 +140,12 @@
         <div class="date-field"><label>Date Signed</label><input type="date" id="currentDate"></div>
     </div>
 
-    <button class="submit-btn" onclick="generatePDF()">SUBMIT & DOWNLOAD PDF</button>
+    <button class="submit-btn" id="dl-button" onclick="generatePDF()">SUBMIT & DOWNLOAD PDF</button>
+
+    <div class="footer">
+        Thomas Ahrensfeld, LMT | License: MA 99692 | Knead Clay LLC
+    </div>
+</div>
 
 <script>
     // Set today's date
@@ -148,23 +155,30 @@
     function generatePDF() {
         const element = document.getElementById('form-content');
         const clientName = document.getElementById('clientName').value || 'Client';
+        const button = document.getElementById('dl-button');
         
-        // Updated configuration to prevent cutting off the bottom
+        // Hide button during PDF generation
+        button.classList.add('no-export');
+
         const opt = {
-            margin:       [0.3, 0.3, 0.5, 0.3], // [top, left, bottom, right]
+            margin:       [0.3, 0.3, 0.5, 0.3],
             filename:     'Barclay_Intake_' + clientName + '.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { 
                 scale: 2, 
                 useCORS: true, 
                 letterRendering: true,
-                scrollY: 0 // Forces the capture to start from the top
+                scrollY: 0 
             },
             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
             pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
-        // This triggers the full capture and download
-        html2pdf().set(opt).from(element).save();
+        // Run download and then show button again
+        html2pdf().set(opt).from(element).save().then(() => {
+            button.classList.remove('no-export');
+        });
     }
 </script>
+</body>
+</html>
