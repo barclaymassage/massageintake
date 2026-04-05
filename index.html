@@ -26,7 +26,6 @@
             box-sizing: border-box;
         }
 
-        /* Smooth Fade-in Animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -80,12 +79,7 @@
             flex-shrink: 0; 
         }
 
-        .bio-text { 
-            font-size: 15px; 
-            color: var(--text); 
-            margin: 0;
-        }
-
+        .bio-text { font-size: 15px; color: var(--text); margin: 0; }
         .bio-text strong { color: var(--primary); font-weight: 700; }
 
         .btn-stack { display: flex; flex-direction: column; gap: 15px; width: 100%; }
@@ -111,7 +105,6 @@
         .btn-primary:hover { 
             background: #1a202c; 
             transform: translateY(-3px); 
-            box-shadow: 0 8px 20px rgba(45, 55, 72, 0.3);
         }
 
         .btn-outline { 
@@ -121,7 +114,6 @@
 
         .btn-outline:hover { 
             background: #f7fafc; 
-            border-color: #cbd5e0;
             transform: translateY(-2px);
         }
 
@@ -130,9 +122,19 @@
             font-size: 11px; 
             color: #a0aec0; 
             text-transform: uppercase; 
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             line-height: 1.8;
         }
+
+        .address-link {
+            color: #a0aec0;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 5px;
+            transition: color 0.2s;
+        }
+
+        .address-link:hover { color: var(--accent); }
 
         @media (max-width: 600px) {
             .card { padding: 40px 25px; }
@@ -164,8 +166,13 @@
     </div>
 
     <div class="footer-info">
-        THOMAS "CLAY" AHRENSFELD, LMT | MA 99692<br>
-        PORT ORANGE, FLORIDA | KNEAD CLAY LLC
+        <strong>THOMAS "CLAY" AHRENSFELD, LMT | MA 99692</strong><br>
+        <a href="https://www.google.com/maps/search/?api=1&query=5889+S+Williamson+Blvd+Port+Orange+FL+32128+Suite+1416" 
+           target="_blank" class="address-link">
+            5889 S Williamson Blvd, Suite 1416<br>
+            Port Orange, FL 32128
+        </a><br>
+        KNEAD CLAY LLC
     </div>
 </div>
 
