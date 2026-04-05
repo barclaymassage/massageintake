@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barclay Massage & Wellness | Port Orange</title>
+    <title>Barclay Massage & Wellness | Port Orange Recovery</title>
     <style>
         :root {
             --steel: #1a202c;
             --accent: #27ae60;
             --text-dark: #2d3748;
+            --bg-wood: #232931;
         }
 
         body { 
             font-family: 'Inter', -apple-system, sans-serif;
             margin: 0; 
-            background-color: #232931;
+            /* Subtle Dark Wood Grain Texture */
+            background-color: var(--bg-wood);
             background-image: url("https://www.transparenttextures.com/patterns/dark-wood.png");
             display: flex; 
             justify-content: center; 
@@ -24,57 +26,48 @@
             box-sizing: border-box;
         }
 
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .main-container {
-            max-width: 1000px;
+            max-width: 950px;
             width: 100%;
             background: white;
             display: flex;
             flex-direction: row;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-            position: relative; /* Needed for the background logo */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.7s ease-out;
         }
 
-        /* THE WATERMARK LOGO */
-        .main-container::before {
-            content: "";
-            position: absolute;
-            top: 10%;
-            right: -5%;
-            width: 600px; /* Massive size */
-            height: 600px;
-            background-image: url("barclay-logo.png");
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.07; /* Very faded - just a hint of the brand */
-            pointer-events: none;
-            z-index: 0;
-        }
-
+        /* LEFT SIDE: STEEL & BRAND */
         .branding-side {
             flex: 1;
             background: var(--steel);
+            /* Brushed Metal Texture Overlay */
             background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
             padding: 60px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-right: 6px solid var(--accent);
-            z-index: 1;
+            border-right: 5px solid var(--accent);
         }
 
-        .biz-logo-main { 
+        .biz-logo { 
             width: 100%;
-            max-width: 350px;
-            margin-bottom: 40px;
+            max-width: 320px; /* Adjusted to your preferred larger size */
+            height: auto;
+            margin-bottom: 35px;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
         }
 
         .lmt-photo { 
-            width: 160px; 
-            height: 160px; 
+            width: 180px; 
+            height: 180px; 
             border-radius: 12px;
             object-fit: cover; 
             border: 3px solid var(--accent);
@@ -82,63 +75,81 @@
             background: var(--steel);
         }
 
+        /* RIGHT SIDE: BIO & ACTION */
         .content-side {
-            flex: 1.5;
+            flex: 1.3;
             padding: 60px;
-            background: transparent; /* Let the watermark show through */
+            background: #ffffff;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            z-index: 1;
         }
 
         .bio-header {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 900;
             color: var(--steel);
             text-transform: uppercase;
-            margin-bottom: 20px;
-            line-height: 1.1;
+            letter-spacing: -0.5px;
+            margin-bottom: 15px;
+            border-left: 6px solid var(--accent);
+            padding-left: 18px;
         }
 
         .bio-text { 
-            font-size: 17px; 
-            line-height: 1.9;
+            font-size: 16px; 
+            line-height: 1.8;
             color: var(--text-dark);
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .btn-stack { display: flex; flex-direction: column; gap: 15px; }
 
         .btn { 
             padding: 22px; 
-            border-radius: 4px; 
+            border-radius: 8px; 
             font-weight: 800; 
             text-decoration: none; 
             text-align: center;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 0px #1e8549; }
+        .btn-primary { 
+            background: var(--accent); 
+            color: white; 
+            box-shadow: 0 4px 0px #1e8549;
+        }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0px #1e8549; }
+        .btn-primary:active { transform: translateY(2px); box-shadow: 0 0px 0px #1e8549; }
 
-        .btn-outline { background: var(--steel); color: white; }
+        .btn-outline { 
+            background: var(--steel);
+            color: white; 
+            border: none;
+        }
+        .btn-outline:hover { background: #2d3748; transform: translateY(-2px); }
 
         .footer-info { 
             margin-top: 50px; 
             font-size: 11px; 
             color: #718096; 
+            text-transform: uppercase; 
             letter-spacing: 1.5px;
             line-height: 1.8;
         }
 
+        .address-link { color: var(--accent); text-decoration: none; font-weight: 700; }
+
+        /* Mobile Optimization */
         @media (max-width: 850px) {
             .main-container { flex-direction: column; }
-            .main-container::before { width: 300px; height: 300px; top: 50%; right: 0; }
-            .branding-side { border-right: none; border-bottom: 6px solid var(--accent); }
-            .content-side { padding: 40px 25px; text-align: center; }
+            .branding-side { border-right: none; border-bottom: 6px solid var(--accent); padding: 50px 30px; }
+            .content-side { padding: 50px 30px; text-align: center; }
+            .bio-header { border-left: none; padding-left: 0; }
+            .biz-logo { max-width: 260px; }
         }
     </style>
 </head>
@@ -146,16 +157,16 @@
 
 <div class="main-container">
     <div class="branding-side">
-        <img src="barclay-logo.png" alt="Barclay Massage & Wellness" class="biz-logo-main">
+        <img src="barclay-logo.png" alt="Barclay Massage & Wellness" class="biz-logo">
         <img src="thomas-ahrensfeld.jpg" alt="Thomas 'Clay' Ahrensfeld, LMT" class="lmt-photo">
     </div>
 
     <div class="content-side">
-        <div class="bio-header">Precision Recovery<br><span style="color: var(--accent);">Built for Performance</span></div>
+        <div class="bio-header">Results-Driven Recovery</div>
         <p class="bio-text">
-            At <strong>Barclay Massage & Wellness</strong>, we treat the body like the high-performance machine it is. Whether you’re recovering from a heavy training cycle or managing chronic muscle tension, our approach is focused on structural relief and restored mobility. 
+            At <strong>Barclay Massage & Wellness</strong>, we believe every body deserves to perform at its best—whether you’re hitting a new PR in the gym or just looking to move without pain. 
             <br><br>
-            Founded by <strong>Thomas "Clay" Ahrensfeld, LMT</strong>, we specialize in technical deep-tissue and performance recovery for those who demand the most from their bodies.
+            Founded by <strong>Thomas "Clay" Ahrensfeld, LMT</strong>, we specialize in high-performance recovery and precision deep-tissue work to help you keep up with the demands of your life.
         </p>
 
         <div class="btn-stack">
@@ -165,7 +176,11 @@
 
         <div class="footer-info">
             <strong>MA 99692 | KNEAD CLAY LLC</strong><br>
-            5889 S Williamson Blvd, Suite 1416 | Port Orange, FL 32128
+            <a href="https://www.google.com/maps/search/?api=1&query=5889+S+Williamson+Blvd+Suite+1416+Port+Orange+FL+32128" 
+               target="_blank" class="address-link">
+                5889 S Williamson Blvd, Suite 1416<br>
+                Port Orange, FL 32128
+            </a>
         </div>
     </div>
 </div>
