@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barclay Massage & Wellness - Intake Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.5; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
+        /* 2. ADDED ID="form-content" FOR THE PDF GENERATOR */
         .form-container { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-top: 10px solid #2c3e50; }
         .header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
         .biz-name { font-size: 30px; font-weight: 800; text-transform: uppercase; margin: 0; color: #2c3e50; }
@@ -31,10 +34,10 @@
         .date-field { flex: 1.5; }
 
         .submit-btn { 
-            display: block; width: 100%; padding: 15px; background-color: #2c3e50; color: white; 
+            display: block; width: 100%; padding: 15px; background-color: #27ae60; color: white; 
             border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 40px;
         }
-        .submit-btn:hover { background-color: #34495e; }
+        .submit-btn:hover { background-color: #2ecc71; }
 
         @media print {
             .submit-btn, .id-warning { display: none !important; }
@@ -45,7 +48,7 @@
 </head>
 <body>
 
-<div class="form-container">
+<div class="form-container" id="form-content">
     <div class="header">
         <div class="biz-name">Barclay Massage & Wellness</div>
         <div class="location">Port Orange, Florida</div>
@@ -56,7 +59,7 @@
     </div>
 
     <h3>1. Client Information</h3>
-    <div class="field" style="margin-bottom:15px;"><label>Full Name</label><input type="text" placeholder="First Last"></div>
+    <div class="field" style="margin-bottom:15px;"><label>Full Name</label><input type="text" id="clientName" placeholder="First Last"></div>
     <div class="field" style="margin-bottom:15px;"><label>Street Address</label><input type="text"></div>
     <div class="row">
         <div class="field"><label>Phone Number</label><input type="text"></div>
@@ -135,18 +138,33 @@
         <div class="date-field"><label>Date Signed</label><input type="date" id="currentDate"></div>
     </div>
 
-    <button class="submit-btn" onclick="window.print()">SUBMIT & SAVE AS PDF</button>
-
-    <div class="footer">
-        Thomas Ahrensfeld, LMT | License: MA 99692 | Knead Clay LLC
-    </div>
-</div>
+    <button class="submit-btn" onclick="generatePDF()">SUBMIT & DOWNLOAD PDF</button>
 
 <script>
-    // Sets the calendar to today's date by default when they open it
+    // Set today's date
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('currentDate').value = today;
-</script>
 
-</body>
-</html>
+    function generatePDF() {
+        const element = document.getElementById('form-content');
+        const clientName = document.getElementById('clientName').value || 'Client';
+        
+        // Updated configuration to prevent cutting off the bottom
+        const opt = {
+            margin:       [0.3, 0.3, 0.5, 0.3], // [top, left, bottom, right]
+            filename:     'Barclay_Intake_' + clientName + '.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true, 
+                letterRendering: true,
+                scrollY: 0 // Forces the capture to start from the top
+            },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+            pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        // This triggers the full capture and download
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
