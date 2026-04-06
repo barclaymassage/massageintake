@@ -59,7 +59,7 @@
 
         .biz-logo { 
             width: 100%;
-            max-width: 450px; /* Adjusted to your preferred larger size */
+            max-width: 450px; 
             height: auto;
             margin-bottom: 35px;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
@@ -103,34 +103,77 @@
             margin-bottom: 35px;
         }
 
-        .btn-stack { display: flex; flex-direction: column; gap: 15px; }
+        /* CONTACT GRID STYLING */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
 
-        .btn { 
-            padding: 22px; 
-            border-radius: 8px; 
-            font-weight: 800; 
-            text-decoration: none; 
-            text-align: center;
-            transition: all 0.2s ease;
-            font-size: 14px;
-            text-transform: uppercase;
+        .contact-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card:hover:not(.booking-soon) {
+            border-color: var(--accent);
+            transform: translateX(8px);
+        }
+
+        .booking-soon {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e0;
+            cursor: default;
+        }
+
+        .status-badge {
+            position: absolute;
+            right: -15px;
+            top: 8px;
+            background: var(--accent);
+            color: white;
+            font-size: 8px;
+            font-weight: 900;
+            padding: 3px 20px;
+            transform: rotate(15deg);
             letter-spacing: 1px;
         }
 
-        .btn-primary { 
-            background: var(--accent); 
-            color: white; 
-            box-shadow: 0 4px 0px #1e8549;
+        .icon { 
+            font-size: 20px; 
+            margin-right: 15px; 
+            background: rgba(26, 32, 44, 0.05); 
+            padding: 10px; 
+            border-radius: 8px;
+            min-width: 40px;
+            text-align: center;
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0px #1e8549; }
-        .btn-primary:active { transform: translateY(2px); box-shadow: 0 0px 0px #1e8549; }
 
-        .btn-outline { 
-            background: var(--steel);
-            color: white; 
-            border: none;
+        .info-block { display: flex; flex-direction: column; text-align: left; }
+
+        .contact-label {
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--steel);
         }
-        .btn-outline:hover { background: #2d3748; transform: translateY(-2px); }
+
+        .contact-subtext {
+            font-size: 14px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .booking-soon .contact-subtext { color: var(--accent); font-weight: 800; font-size: 11px; }
 
         .footer-info { 
             margin-top: 50px; 
@@ -169,14 +212,44 @@
             Founded by <strong>Thomas "Clay" Ahrensfeld, LMT</strong>, we specialize in high-performance recovery and precision deep-tissue work to help you keep up with the demands of your life.
         </p>
 
-        <div class="btn-stack">
-            <a href="intake.html" class="btn btn-primary">📋 START NEW CLIENT INTAKE</a>
-            <a href="mailto:Contact@KneadClay.com" class="btn btn-outline">✉️ INQUIRE ABOUT BOOKING</a>
+        <div class="contact-grid">
+            <div class="contact-card booking-soon">
+                <div class="icon">🚀</div>
+                <div class="info-block">
+                    <span class="contact-label">Online Booking</span>
+                    <span class="contact-subtext">SYSTEM LAUNCHING SOON</span>
+                </div>
+                <div class="status-badge">COMING 2026</div>
+            </div>
+
+            <a href="mailto:barclaymassage@gmail.com?subject=Booking Inquiry" class="contact-card">
+                <div class="icon">✉️</div>
+                <div class="info-block">
+                    <span class="contact-label">Email Us</span>
+                    <span class="contact-subtext">barclaymassage@gmail.com</span>
+                </div>
+            </a>
+
+            <a href="tel:4078672207" class="contact-card">
+                <div class="icon">📱</div>
+                <div class="info-block">
+                    <span class="contact-label">Call or Text</span>
+                    <span class="contact-subtext">(407) 867-2207</span>
+                </div>
+            </a>
+            
+            <a href="intake.html" class="contact-card">
+                <div class="icon">📋</div>
+                <div class="info-block">
+                    <span class="contact-label">New Clients</span>
+                    <span class="contact-subtext">Start Intake Form</span>
+                </div>
+            </a>
         </div>
 
         <div class="footer-info">
-            <strong>MA 99692 | KNEAD CLAY LLC</strong><br>
-            <a href="https://www.google.com/maps/search/?api=1&query=5889+S+Williamson+Blvd+Suite+1416+Port+Orange+FL+32128" 
+            <strong>THOMAS "CLAY" AHRENSFELD, LMT | MA 99692 | KNEAD CLAY LLC</strong><br>
+            <a href="https://maps.google.com/?q=5889+S+Williamson+Blvd+Suite+1416+Port+Orange+FL+32128" 
                target="_blank" class="address-link">
                 5889 S Williamson Blvd, Suite 1416<br>
                 Port Orange, FL 32128
